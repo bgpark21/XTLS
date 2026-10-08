@@ -1,0 +1,72 @@
+
+A quick way to install Xtls ver. 9.0 and its companies to your computer. 
+The programs are assumed to install on Unix or Unix-like operating 
+system (Linux, Mac OS X etc.) and a Fortran compiler and the C-shell 
+(or TC-shell) are also requiered.
+
+1)  The source program of Xtls is written in Fortran. If you do not 
+have any of Fortran compiler on your computer, you need to install it. 
+Installation of a Fortran 90 or later version of compiler is 
+particularly recommended. For FORTRAN77 compiler, procedures are little
+different. Read instructions in the file "Makefile", for details.
+If you are using GNU g77 compiler see also the last paragraph of 5).
+
+2)  Open the file "Makefile" in this directory with an editor and 
+modify the values of variables MODE, BINDIR, FC and FRM according to 
+the instructions in the file. At least you need to specify the command
+ and options of your Fortran compiler by the variables FC and FRM.
+
+  You can also specify a directory where you want to put the executable
+files by BINDIR.  The executable files will be created in a directory 
+"bin" under your home directory by default. 
+
+3)  At the bottom of the file x900.sed, you will find several lines 
+something like
+  
+    />>>START GNU/,/>>>END GNU/d
+
+  Read instraction in the file and put "#" begining of the line 
+corresponding to your fortran compiler. If you can not identfy which 
+line is suited for your system, put "#" at the begining of the line 
+with "UNKNOWN".
+
+4) Type the following command and hit the return key.
+
+    make all
+
+  If the programs are successfully compiled, executable files xtls900, 
+pre-X15, x900, xcs, xc will be created under the directory specified 
+by BINDIR.
+
+5) Set command path to the directory specified by BINDIR. (If you are 
+using C-shell or TC-shell, add this directory to the variable "path" 
+in .cshrc or .tcshrc files in your home directory and type 
+"source ~/.cshrc" or "source ~/.tcshrc" will do.)
+   For a test run, type the following command and hit the return key.
+
+    make test
+
+   If all the programs have been properly installed, a messege will 
+appear: "Xtls version 9.0 has been successfully installed!".
+
+ If you are using an old compiler (such as GNU g77), sometimes the 
+X-code interpreter is not properly installed. To check out this, 
+type "xc" and hit the return key. You will find a prompt "Xcode>" 
+appears. Input a simple expression such as "1+1" and hit the return 
+key. The results must be something like below.
+-----
+   Xcode interpreter V2.30 coded by Arata Tanaka (Jan. 2004)
+Xcode>1+1
+           2
+Xcode>
+-----
+To quit the interpreter hold control key and push D key.
+If you find error or warning messages every time you hit return key
+or the prompt "Xcode>" appears wrong timing, the installation is
+not successful.  In such situation, open the files xc230.sed, 
+xcs230.sed and xclt230.sed and find a line with
+       s/'(A,$)'/'(A)',ADVANCE='no'/g
+and comment out the line by putting "#" beginning of it in each of
+these files. Erase executable files xc and xcs in the directory
+specified by the variable BINDIR and recompile.
+

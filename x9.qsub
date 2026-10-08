@@ -1,0 +1,35 @@
+#!/bin/csh
+
+set args=($*)
+set dir=`pwd`
+
+cd $dir
+cd ../xwrk
+
+cat <<QSUB > ~/bin/qscript 
+#!/bin/csh
+# @ class = D1
+# @ job_type = parallel
+# @ job_name = xtls8
+# @ comment = "xtls9"
+#
+# @ node_usage = not_shared
+#
+# @ output = \$(job_name).o\$(jobid)
+# @ error = \$(job_name).e\$(jobid)
+#
+# @ queue
+
+foreach xcard ($args)
+  cp ../xcards/\$xcard ../xwrk/ft.03
+  cp ft.03 ../xobjs/\$xcard.obj
+  ~/bin/pre-X >\$xcard.err  
+  ~/bin/xtls8 >>\$xcard.err  
+  cat ft.02 >> ../xobjs/\$xcard.obj
+  echo end of \$xcard
+end
+QSUB
+
+llsubmit ~/bin/qscript
+
+
