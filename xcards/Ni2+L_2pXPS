@@ -1,0 +1,75 @@
+ XCRD:
+ //XCARD for NiO 2pXPS 
+ (
+    U3d3d=7.3;
+    U3d2p=8.5;
+    Dlt=4.7;
+    VEg=3.0;
+    AOh=0.7;
+    Tpp=0.7;
+ )
+ CNFG:
+        Ld 2p 3d
+   #i1  10  6  8
+   #i2   9  6  9
+   #i3   8  6 10
+
+   #f1  10  5  8
+   #f2   9  5  9
+   #f3   8  5 10
+
+ PARA:
+
+   U(3d,3d)=U3d3d;
+   U(3d,2p)=U3d2p;
+   Dlt(#i1 #i2 Ld 3d)=Dlt;
+
+ EXEC:
+
+   Mode =XPS;
+   Ninit=1;
+
+ OPRT://No.1 initial
+
+   Rk (#i1 3d 3d)={12.234, 7.598};
+   Zta(#i1 3d)=0.083;
+   Zta(#i2 3d)=0.074;
+
+   VOh(#i1 #i2 Ld 3d)={VEg, VEg/2d0};
+   VOh(#i2 #i3 Ld 3d)={VEg, VEg/2d0}; 
+
+   10Dq(#i1 3d )=AOh;
+   10Dq(#i2 3d )=AOh;
+
+   10Dq(#i2 Ld )=Tpp;
+   10Dq(#i3 Ld )=Tpp;
+
+ OPRT://No.2 final
+
+   Rk (#f1 3d 3d )={14.022, 8.764};
+   Rk (#f1 3d 2p )={ 8.350, 6.332, 3.603};
+   Rk (#f2 3d 2p )={ 7.721, 5.787, 3.291};
+
+   Zta(#f1 3d)=0.112;
+   Zta(#f2 3d)=0.102;
+
+   Zta(#f1 2p)=11.507;
+   Zta(#f2 2p)=11.509;
+   Zta(#f3 2p)=11.509;
+
+   10Dq(#f1 3d )=AOh;
+   10Dq(#f2 3d )=AOh;
+
+   10Dq(#f2 Ld )=Tpp;
+   10Dq(#f3 Ld )=Tpp;
+
+   VOh(#f1 #f2 Ld 3d)={VEg, VEg/2d0};
+   VOh(#f2 #f3 Ld 3d)={VEg, VEg/2d0};
+
+ OPRT://No.3
+
+   VSO(#i1 #f1 2p ep)=1.0;
+   VSO(#i2 #f2 2p ep)=1.0;
+   VSO(#i3 #f3 2p ep)=1.0;
+
+ XEND:                                                                     
